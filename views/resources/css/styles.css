@@ -1,0 +1,23 @@
+.text-index{
+    font-size: 60px;
+    color: aliceblue;
+    margin: 6px;
+}
+.text-small-index{
+    margin-top: 1%;
+    margin-left: 25%;
+    margin-right: 25%;
+    color: aliceblue;
+}
+.title-login-pane{
+    margin-top: 40%;
+}
+
+/* Stilos del registro */
+.title-login-pane2{
+    margin-top: 30%;
+}
+#btn2{
+    margin-top: 3px;
+    float: right;
+}

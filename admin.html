@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!--Link y script de bootstrap-->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+    crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="./views/resources/css/styles.css">
+  <!-- link que agrega los enlaces a los archivos CSS de Bootstrap -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <title>Administrador</title>
+  <style>
+    /* Establecer la sombra al pasar el cursor sobre el botón */
+    .btn-shadow:hover {
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.94);
+      background-color: chartreuse;
+      border-color: rgb(6, 238, 76);
+      color: white;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container-fluid" style="background-color: bisque;">
+    <div class="row">
+      <div class="col-sm-4">
+        <div class="text-center">
+          <div>
+            <h3 class="title-login-pane">Funciones</h3>
+          </div>
+          <div class="card">
+            <div class="card-body">
+              <button class="btn btn-primary btn-shadow" id="btn2" onclick="listarUsuario()">Listar un Usuario</button>
+              <br></br>
+              <button class="btn btn-primary btn-shadow" id="btn2" onclick="actualizarUsuario()">Actualizar
+                Usuario</button>
+              <br></br>
+              <button class="btn btn-primary btn-shadow" id="btn2" onclick="eliminarUsuario()">Eliminar Usuario</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-4 bg-primary" style="height:  100vh;">
+        <div class="text-center">
+          <div>
+            <h3 class="title-login-pane2">Bienvenido Admin</h3>
+          </div>
+          <hr>
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Registrar Usuario</h5>
+              <p class="card-text">Digite todos los campos en el formulario de registro</p>
+              <div class="btn btn-primary" onclick="registrarUsuario()">Registar</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <a href="login.html" class="btn" id="btn2" style="background-color: red; color: aliceblue;">Salir</a>
+        <br></br>
+        <div class="row">
+          <div class="container">
+            <h5>Registro de usuarios</h5>
+            <button class="btn btn-primary" data-toggle="collapse" data-target="#formulario">
+              Mostrar formulario
+            </button>
+            <div id="formulario" class="collapse">
+              <form id="formularioForm">
+                <div class="form-group">
+                  <br></br>
+                  <label for="nombres">Nombres:</label>
+                  <input type="text" class="form-control" id="nombres" placeholder="nombre completo" required>
+                </div>
+                <div class="form-group">
+                  <label for="apellido">Apellidos:</label>
+                  <input type="text" class="form-control" id="apellidos" placeholder="escriba sus apellidos" required>
+                </div>
+                <div class="form-group">
+                  <label for="opcion">Tipo de Documento:</label>
+                  <select class="form-control" id="opcion" required>
+                    <option value="">Seleccionar...</option>
+                    <option value="Cedula ciudadania">Cedula ciudadania</option>
+                    <option value="Tarjeta identidad">Tarjeta identidad</option>
+                    <option value="Pasaporte">Pasaporte</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="nombre">Documento identidad:</label>
+                  <input type="number" class="form-control" id="documento" placeholder="numero de documento" required>
+                </div>
+                <div class="btn btn-shadow" style="border-color: black;" onclick="registrarUsuarioForm()">Enviar</div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h1>Listar documentos de una colección en Firebase Realtime Database</h1>
+  <br>
+  <hr>
+  <ul id="lista-documentos"></ul>
+  <br>
+  <hr>
+  <div class="btn btn-shadow" style="border-color: black;" onclick="listar()">LISTAR</div>
+  <script>
+    function listar() {
+      // Configuración de Firebase
+      // Obtener referencia a la colección
+      var ref = firebase.database().ref('Usuarios');
+
+      // Leer los documentos de la colección
+      ref.once('value')
+        .then(function (snapshot) {
+          // Recorrer los documentos
+          snapshot.forEach(function (childSnapshot) {
+            // Obtener los datos de cada documento
+            var documento = childSnapshot.val();
+            // Mostrar los datos en la lista
+            var lista = document.getElementById('lista-documentos');
+            var item = document.createElement('li');
+
+            item.appendChild(document.createTextNode(JSON.stringify(documento)));
+            lista.appendChild(item);
+          });
+        })
+        .catch(function (error) {
+          console.error('Error al listar los documentos:', error);
+        });
+    }
+  </script>
+
+  <h1>Listar usuarios en una tabla con filas y columnas</h1>
+  <table id="tabla-usuarios">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Apellido</th>
+        <th>Documento</th>
+        <th>Nombre</th>
+        <th>Password</th>
+        <th>Rol</th>
+        <th>Tipo Documento</th>
+      </tr>
+    </thead>
+    <tbody id="cuerpo-tabla"></tbody>
+  </table>
+  <div class="btn btn-shadow" style="border-color: black;" onclick="listarTodos()">LISTAR EN TABLA</div>
+
+  <script>
+    // Función para listar los documentos de una colección en una tabla
+    function listarTodos() {
+      var tabla = document.getElementById('tabla-documentos');
+      var cuerpoTabla = document.getElementById('cuerpo-tabla');
+
+      // Limpiar la tabla antes de llenarla nuevamente
+      cuerpoTabla.innerHTML = '';
+
+      // Obtener referencia a la colección
+      var ref = firebase.database().ref('Usuarios');
+
+      // Leer los documentos de la colección
+      ref.once('value')
+        .then(function(snapshot) {
+          // Recorrer los documentos
+          snapshot.forEach(function(childSnapshot) {
+            var key = childSnapshot.key;
+            var data = childSnapshot.val();
+
+            // Crear una nueva fila en la tabla
+            var fila = document.createElement('tr');
+
+            // Agregar las celdas con los datos del documento
+            var celdaID = document.createElement('td');
+            celdaID.textContent = key;
+            fila.appendChild(celdaID);
+
+            for (var propiedad in data) {
+              var celda = document.createElement('td');
+              celda.textContent = data[propiedad];
+              fila.appendChild(celda);
+            }
+
+            // Agregar la fila a la tabla
+            cuerpoTabla.appendChild(fila);
+          });
+        })
+        .catch(function(error) {
+          console.error('Error al listar los documentos:', error);
+        });
+    }
+
+  </script>
+
+
+</body>
+
+</html>
+
+<style>
+  table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  th,
+  td {
+    border: 1px solid black;
+    padding: 8px;
+    text-align: left;
+  }
+
+  th {
+    background-color: #f2f2f2;
+  }
+</style>
+<script src="https://www.gstatic.com/firebasejs/9.1.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.1.1/firebase-database.js"></script>
+<!-- Agregamos los script de firebase para realtime databe -->
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+<!-- Agrega los enlaces a los archivos JavaScript de Bootstrap (jQuery es requerido) -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<!-- Enrutamos el modelo y el controlador correspondiente a esta vista -->
+<script src="./models/firebase.js"></script>
+<script src="./controllers/admin.js"></script>

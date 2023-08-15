@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="./views/resources/css/styles.css">
+    <title>Login</title>
+</head>
+<body>
+    <div class="container-fluid" >
+        <div class="row">
+            <div class="col-sm-8 bg-success" style="height:  100vh;" >
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-sm text-center">
+                            <h3 class="text-index" style="margin-top: 30%;">Bienvenidos al Login</h3>
+                            <p class="text-small-index">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Numquam ratione quo inventore, distinctio veritatis commodi voluptates eos facilis laudantium eius ipsum labore ut hic explicabo repudiandae itaque incidunt neque culpa.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4" style="background-color: royalblue;">
+                <div class="container-fluid" >
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="text-center">
+                                <h4 class="title-login-pane">Login</h4>
+                            </div>
+                            <hr>
+                            <div class="card">
+                                <div class="card-body">
+                                    <br></br>
+                                    <input type="text" name="" id="usuario" class="form-control" value="" placeholder="Documento de identidad">
+                                    <br></br>
+                                    <input type="password" name="" id="password" class="form-control"  placeholder="Password">
+                                    <br></br>
+                                    <button class="btn btn-primary" onclick="ingresarLogin()">Ingresar</button>
+                                    <br></br>
+                                    <div class="bg-success" id="Ingreso"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+</html>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+<script src="./models/firebase.js" ></script>
+<script src="controllers/login.js"></script>
